@@ -1,4 +1,4 @@
-package com.example.crimeactivity;
+package com.example.criminalintent;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
