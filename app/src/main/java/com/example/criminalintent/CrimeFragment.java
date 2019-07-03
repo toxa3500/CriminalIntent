@@ -13,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 public class CrimeFragment extends Fragment {
+
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateButton;
