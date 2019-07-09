@@ -1,6 +1,7 @@
 package com.example.criminalintent;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,6 +30,8 @@ public class CrimeFragment extends Fragment {
     private EditText mTitleField;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
+    private Button mRemoveCrime;
+    private CrimePagerActivity thisActivity;
 
     public static CrimeFragment newInstance(UUID crimeId) {
         Bundle args = new Bundle();
@@ -44,6 +47,14 @@ public class CrimeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
         mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        CrimeLab.get(getActivity())
+                .updateCrime(mCrime);
     }
 
     @Override
@@ -91,6 +102,15 @@ public class CrimeFragment extends Fragment {
             }
         });
 
+        mRemoveCrime = (Button) v.findViewById(R.id.remove_crime);
+        mRemoveCrime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CrimeLab.get(getActivity()).removeCrime(mCrime);
+                thisActivity.finish();
+            }
+        });
+
         return v;
     }
 
@@ -104,6 +124,12 @@ public class CrimeFragment extends Fragment {
             mCrime.setmDate(date);
             updateDate();
         }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        thisActivity = (CrimePagerActivity) context;
     }
 
     private void updateDate() {
