@@ -10,7 +10,6 @@ import com.example.criminalintent.database.CrimeCursorWrapper;
 import com.example.criminalintent.database.CrimeDbSchema.CrimeTable;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -123,6 +122,7 @@ public class CrimeLab {
         values.put(CrimeTable.Cols.TITLE, crime.getmTitle());
         values.put(CrimeTable.Cols.DATE, crime.getmDate().getTime());
         values.put(CrimeTable.Cols.SOLVED, crime.ismSolved() ? 1 : 0);
+        values.put(CrimeTable.Cols.SUSPECT, crime.getSuspect());
 
         return values;
     }
